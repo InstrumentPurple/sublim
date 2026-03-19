@@ -12,3 +12,5 @@ should look like this
 The font is huge so you should keep your messages brief.
 
 Superior to videos because within a program you get high percision control of timing and randomization.
+
+Comment and uncomment lines in main to change behavior of the script.
