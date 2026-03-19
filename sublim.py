@@ -75,7 +75,6 @@ class consiousReinforcement(qt.QWidget):
         self.layout = qt.QGridLayout()
         self.setLayout(self.layout)
 
-
         self.text = qt.QLabel()
         self.text.setAlignment(Qt.AlignHCenter)
         self.font  = QFont("Arial", 60)
@@ -111,14 +110,21 @@ class consiousReinforcement(qt.QWidget):
 if __name__=="__main__":
     app=qt.QApplication()
 
-    # burst with same order as in the text file and always in the same order
-    # win=window(sys.argv[1], "", "burst")
-    # randomization. If you start being able to read it more you should have random on
-    # win=window(sys.argv[1], "random", "burst")
-    # constant, random stream
-    # win=window(sys.argv[1], "random", "")
-    # on occation readable
-    win=consiousReinforcement(sys.argv[1], "random", "")
+    if len(sys.argv) >= 3:
+        if sys.argv[2] == "rb":
+            win=window(sys.argv[1], "random", "burst")
+            win.setMinimumSize(1600, 52)
+        elif sys.argv[2] == "b":
+            win=window(sys.argv[1], "", "burst")
+            win.setMinimumSize(1600, 52)
+        elif sys.argv[2] == "r":
+            win=window(sys.argv[1], "random", "")
+            win.setMinimumSize(1600, 52)
+        elif sys.argv[2] == "c":
+            win=consiousReinforcement(sys.argv[1], "random", "")
+            win.setMinimumSize(1600, 52)
+    elif len(sys.argv) == 2:
+        win=window(sys.argv[1], "random", "burst")
+        win.setMinimumSize(1600, 52)
 
-    win.setMinimumSize(1600, 52)
     app.exec()
