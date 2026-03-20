@@ -150,12 +150,12 @@ class surpriser(qt.QWidget):
         if self.isBurst and (self.cur % len(self.lines) == 0):
             QTest.qWait(self.timeMs)
             self.text.setText("")
-            if rnd < million / 6.0:
+            if rnd < million / 4.5:
                 QTest.qWait(random.randrange(5000,10000))
                 self.text.setText(self.lines[random.randrange(0, len(self.lines))])
                 QTest.qWait(self.timeMs)
                 self.text.setText("")
-            QTest.qWait(random.randrange(3000,30000))
+            QTest.qWait(random.randrange(4000,35000))
 
 
         self.cur += 1
@@ -184,7 +184,7 @@ if __name__=="__main__":
             win=surpriser(sys.argv[1], "random", "burst")
             win.setMinimumSize(1600, 52)
     elif len(sys.argv) == 2:
-        win=window(sys.argv[1], "random", "burst")
+        win=window(sys.argv[1], "", "")
         win.setMinimumSize(1600, 52)
     else:
         print("USAGE: python ./sublim.py [text file] [options]")
