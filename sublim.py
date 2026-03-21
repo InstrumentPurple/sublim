@@ -1,6 +1,6 @@
 #!/usr/bin/python
 import PySide6.QtWidgets as qt
-from PySide6.QtGui import QFont
+from PySide6.QtGui import QFont, QCloseEvent
 from PySide6.QtCore import QTimer,Slot
 from PySide6.QtTest import QTest
 from PySide6.QtCore import Qt
@@ -12,6 +12,7 @@ import sys
 import random
 import os
 import time
+import datetime
 
 million = 1000000
 
@@ -25,6 +26,11 @@ class window(qt.QWidget):
 
         self.cur = 0
         self.timeMs = 44 # adjust this if you want. 44 is at good timing tho. should be 34-50ms for it still to be subliminal
+
+        self.startedTime = datetime.datetime.now()
+        self.timeFile = open("./rectime.txt", "a")
+        self.timeFile.write(self.startedTime.strftime("date %Y-%m-%d\n"))
+
 
         self.tm = QTimer()
         self.tm.setInterval(self.timeMs)
@@ -59,6 +65,14 @@ class window(qt.QWidget):
 
         self.cur += 1
 
+    def closeEvent(self, event: QCloseEvent):
+        delta = datetime.datetime.now() - self.startedTime
+        seconds = delta.total_seconds()
+        self.timeFile.write(str(seconds) + " seconds\n")
+        self.timeFile.close()
+
+        event.accept()
+
 
 class consiousReinforcement(qt.QWidget):
     def __init__(self, fpath:str, isRandom: str, isburst: str):
@@ -72,6 +86,11 @@ class consiousReinforcement(qt.QWidget):
 
         self.cur = 0
         self.timeMs = 44 # adjust this if you want. 44 is at good timing tho. should be 34-50ms for it still to be subliminal
+
+        self.startedTime = datetime.datetime.now()
+        self.timeFile = open("./rectime.txt", "a")
+        self.timeFile.write(self.startedTime.strftime("date %Y-%m-%d\n"))
+
 
         self.tm = QTimer()
         self.tm.setInterval(self.timeMs)
@@ -112,6 +131,15 @@ class consiousReinforcement(qt.QWidget):
 
         self.cur += 1
 
+    def closeEvent(self, event: QCloseEvent):
+        delta = datetime.datetime.now() - self.startedTime
+        seconds = delta.total_seconds()
+        self.timeFile.write(str(seconds) + " seconds\n")
+        self.timeFile.close()
+
+        event.accept()
+
+
 
 
 class surpriser(qt.QWidget):
@@ -124,6 +152,10 @@ class surpriser(qt.QWidget):
 
         self.cur = 0
         self.timeMs = 44 # adjust this if you want. 44 is at good timing tho. should be 34-50ms for it still to be subliminal
+
+        self.startedTime = datetime.datetime.now()
+        self.timeFile = open("./rectime.txt", "a")
+        self.timeFile.write(self.startedTime.strftime("date %Y-%m-%d\n"))
 
         self.tm = QTimer()
         self.tm.setInterval(self.timeMs)
@@ -165,6 +197,15 @@ class surpriser(qt.QWidget):
 
         self.cur += 1
 
+    def closeEvent(self, event: QCloseEvent):
+        delta = datetime.datetime.now() - self.startedTime
+        seconds = delta.total_seconds()
+        self.timeFile.write(str(seconds) + " seconds\n")
+        self.timeFile.close()
+
+        event.accept()
+
+
 
 
 
@@ -179,6 +220,10 @@ class surpriserBird(qt.QWidget):
         self.burstsWithoutBirds = 0
         self.cur = 0
         self.timeMs = 44 # adjust this if you want. 44 is at good timing tho. should be 34-50ms for it still to be subliminal
+
+        self.startedTime = datetime.datetime.now()
+        self.timeFile = open("./rectime.txt", "a")
+        self.timeFile.write(self.startedTime.strftime("date %Y-%m-%d\n"))
 
         self.tm = QTimer()
         self.tm.setInterval(self.timeMs)
@@ -241,6 +286,14 @@ class surpriserBird(qt.QWidget):
 
         self.cur += 1
 
+
+    def closeEvent(self, event: QCloseEvent):
+        delta = datetime.datetime.now() - self.startedTime
+        seconds = delta.total_seconds()
+        self.timeFile.write(str(seconds) + " seconds\n")
+        self.timeFile.close()
+
+        event.accept()
 
 
 
