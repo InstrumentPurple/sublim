@@ -47,7 +47,8 @@ class windowBase(qt.QWidget):
         self.text.setFont(self.font)
 
         self.layout.addWidget(self.text,0,0)
-        self.setMinimumSize(1600, 52)
+        self.setMinimumSize(1600, 120)
+        self.adjustSize()
         self.tm.start()
         self.show()
 
@@ -221,7 +222,7 @@ if __name__=="__main__":
     elif len(sys.argv) == 2:
         win=window(sys.argv[1], "", "")
     else:
-        print("USAGE: python ./sublim.py [text file] [options]")
+        print("USAGE: python ./sublim.py [text file] [r|b|rb|c|s|bird]")
         quit()
 
     app.exec()
