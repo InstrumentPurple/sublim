@@ -47,7 +47,7 @@ class windowBase(qt.QWidget):
         self.text.setFont(self.font)
 
         self.layout.addWidget(self.text,0,0)
-        self.setMinimumSize(1600, 120)
+        self.setMinimumSize(1600, 100)
         self.adjustSize()
         self.tm.start()
         self.show()
@@ -91,21 +91,27 @@ class consiousReinforcement(windowBase):
         self.burstWaitMin = 3000
         self.burstWaitMax = 5500
         self.readableWait = 2500
+        self.oneInProb = 55.0
+
+        self.minSl = 40
+        self.shownMsgsSl = 0
 
     @Slot()
     def changeText(self):
         rgot = random.randrange(0, million)
 
-        if rgot < million/6: #one in six chance
+        if rgot < million / self.oneInProb and self.shownMsgsSl  > self.minSl:
             self.readable=True
+
         if self.isRand:
             self.text.setText(self.lines[random.randrange(0, len(self.lines))])
         else:
             self.text.setText(self.lines[self.cur % len(self.lines)])
-
+        self.shownMsgsSl += 1
         if self.readable:
             QTest.qWait(self.readableWait)
             self.readable=False
+            self.shownMsgsSl = 0 # reset
         if self.isBurst and (self.cur % len(self.lines) == 0):
             QTest.qWait(self.timeMs)
             self.text.setText("")
@@ -214,7 +220,7 @@ if __name__=="__main__":
         elif sys.argv[2] == "r":
             win=window(sys.argv[1], "random", "")
         elif sys.argv[2] == "c":
-            win=consiousReinforcement(sys.argv[1], "random", "")
+            win=consiousReinforcement(sys.argv[1], "random", "burst")
         elif sys.argv[2] == "s":
             win=surpriser(sys.argv[1], "random", "burst")
         elif sys.argv[2] == "bird":
